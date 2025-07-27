@@ -27,13 +27,19 @@ fastify.get('/getToken', async (request, reply) => {
 async function getCsrfToken(url: string) {
   const response = await fetch(url);
   const html = await response.text();
-
+  const keksi = response.headers.getSetCookie();
+  const match = keksi[0].match(/XSRF-TOKEN=([^;]+)/);
+    const xsrfToken = match ? match[1] : null;
+const match2 = keksi[1].match(/europark_finland_adc_session=([^;]+)/);
+const sessionCookie = match2 ? match2[1] : null;
+console.log(sessionCookie);
+ // console.log("cookie "+keksi)
   const $ = cheerio.load(html);
   const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
   if (csrfToken) {
     console.log(csrfToken);
-    return csrfToken;
+    return [xsrfToken,csrfToken,sessionCookie];
   } else {
     console.error('CSRF token not found');
     return null;

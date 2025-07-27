@@ -35,8 +35,8 @@ export default function App() {
     setLicensePlate(input.trim());
   };
 const handleOpen = async()=>{
-const token = await axios.get("https://68905003945b.ngrok-free.app/getToken")
-console.log("TOKENI ="+ token.data)
+const token = await axios.get("https://7a23ce9eee82.ngrok-free.app/getToken")
+console.log("TOKENI ="+ token.data[2])
 console.log("REKISTERINUMERO = "+licensePlate)
 fetch("https://dc.autoparkki.fi/access/c8ac638d-5ed6-4b15-8618-aad16529cfeb/open", {
   "headers": {
@@ -52,13 +52,20 @@ fetch("https://dc.autoparkki.fi/access/c8ac638d-5ed6-4b15-8618-aad16529cfeb/open
     "sec-fetch-mode": "navigate",
     "sec-fetch-site": "same-origin",
     "sec-fetch-user": "?1",
+    "credentials": "include",
     "upgrade-insecure-requests": "1",
-    "cookie": "XSRF-TOKEN=eyJpdiI6InY1dWNkKzhOVGR1NDhlRkQreFA0OGc9PSIsInZhbHVlIjoiVmFObTdBTitwQjBuYUg0dlZhVS9PR0kwTUhBWVZWRTExN3VQNFVGL0JsQnZiNHpjQ2tKU2YvYUszVVk0OGJsK0pFd3E5cVN4OUlyYVlac2t1R0MvamNOeHVuVjFLR3B5SU5veWw1Q2JkbEpGSzBlaU5JSVJ2eldOODdiaFU1Rk0iLCJtYWMiOiJmZGNkMjRhNjBjNGRmMzllODA5MmVjZWVhMDI0YzkzZTU4ODJkNDVlMjhkNDRlZTg3YmRiZDFkNzcwZmU1Zjk5IiwidGFnIjoiIn0%3D; europark_finland_adc_session=eyJpdiI6IkVDTCtCMlhVSy9aNHRRSXkyVWRqM2c9PSIsInZhbHVlIjoibnBjWk55di8wN0lKcXhnSDdDb0tqODhsTGV5ODRCVTdEWjN2Ulk4RmZQUlJ0M05QU2lTL1NGRHl0Q0l0ejh3Vk1iVC9TdzNNY0RXWTdKSjZlVUZpbDAxZ1Q0a3d4SkZXZ0NBcGtja2pVSmc5TGh1NFloc3dIY1RKNXVNRXpRRXoiLCJtYWMiOiI5ZTE5NGJmODZiNDYwZWNhMTBjZDViYjY0MzE2YzBlNTE5OWRjMDI3NTZlM2FhMGIxYjc0ZGUyYWEwZGM4ZTRiIiwidGFnIjoiIn0%3D",
+     "cookie": `XSRF-TOKEN=${token.data[0]};europark_finland_adc_session=${token.data[2]}`,
     "Referer": "https://dc.autoparkki.fi/access/c8ac638d-5ed6-4b15-8618-aad16529cfeb"
   },
-  "body": `_token=${token.data}&vehicleReg=${licensePlate}&door=c8ac638d-5ed6-4b15-8618-aad16529cfeb`,
+  "body": `_token=${token.data[1]}&vehicleReg=${"yee-222"}&door=c8ac638d-5ed6-4b15-8618-aad16529cfeb`,
   "method": "POST"
-});
+})  .then(response => response.status)
+  .then(result => {
+    console.log("tulos "+result); // This will log the result to the console
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
   if (loading) {
     return (
