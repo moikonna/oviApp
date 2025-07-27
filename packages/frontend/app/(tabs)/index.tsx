@@ -75,7 +75,7 @@ fetch("https://dc.autoparkki.fi/access/c8ac638d-5ed6-4b15-8618-aad16529cfeb/open
         style={styles.centered}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <Text style={styles.title}>Enter Your License Plate</Text>
+        <Text style={styles.title}>Syötä rekisterinumero</Text>
         <TextInput
           style={styles.input}
           placeholder="e.g., ABC-123"
@@ -93,7 +93,7 @@ fetch("https://dc.autoparkki.fi/access/c8ac638d-5ed6-4b15-8618-aad16529cfeb/open
   return (
     <View style={styles.centered}>
       <TouchableOpacity style={styles.bigButton} onPress={handleOpen}>
-        <Text style={styles.buttonText}>Tap Me</Text>
+        <Text style={styles.buttonText}>Avaa</Text>
       </TouchableOpacity>
     </View>
   );
